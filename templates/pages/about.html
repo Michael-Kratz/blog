@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About</title>
-  </head>
-  <body>
-    <h1>About me</h1>
-    <p>
-      I'm 33 years old and currently working at a casino as a slot technician. I
-      love playing video games. i will be moving to Florda end of January. i
-      love sport cars. I'm currently during a Mini Cooper JCW but my dream car
-      is to get a nissan GTR or 370z.
-    </p>
-  </body>
-</html>
+{%extends 'base.html'%} 
+{% load static %}
+
+{% block title %} About {% endblock title %} 
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}" />
+{% endblock css %} 
+
+{% block content %}
+<h1>About Page</h1>
+<p>I'm 33 years old and currently working at a casino as a slot technician. I
+      love playing video games. i will be moving to Florda end of January. I
+      love sport cars. I'm currently driving a Mini Cooper JCW but my dream car
+      is to get a nissan GTR or 370z.</p>
+{% endblock content %}
+
