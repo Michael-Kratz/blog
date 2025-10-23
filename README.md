@@ -12,6 +12,7 @@
    - Create the .gitignore, README.md (optional) files
 9. Link everything to the settings.py
 10. run server (python manage.py runserver)
+11. Command to create apps -> python manage.py startapp NAME_OF_THE_APP
 
 
 # Impoerant notes for DTL - Jinja
