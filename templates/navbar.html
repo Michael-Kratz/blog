@@ -22,7 +22,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'post' %}">Post</a>
+          </li>
           {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'post_create' %}">New</a>
+            </li>
             <li class="nav-item">
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -37,9 +43,6 @@
               <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
             </li>
           {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'post' %}">Post</a>
-          </li>
         </ul>
       </div>
     </div>

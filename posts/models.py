@@ -30,3 +30,11 @@ class Post(models.Model):
     
     def get_deferred_fields(self):
         return reverse("post_detail", args=[self.id])
+
+    def get_absolute_url(self):
+        """Canonical URL for a Post instance.
+
+        Django's CreateView will call this method on the saved model instance
+        (if present) to determine where to redirect after a successful save.
+        """
+        return reverse("post_detail", args=[self.id])
