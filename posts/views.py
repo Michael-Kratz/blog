@@ -56,3 +56,20 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         if self.request.user.is_authenticated:
             return self.request.user == post.author
+        
+
+class DraftPostListView(ListView):
+    template_name = "posts/drafts.html"
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        draft_status = Status.objects.get(name="draft")
+        context["draft_list"] = Post.objects.filter(status=draft_status).filter(author=self.request.user).order_by("created_on").reverse()
+        return context
+
+class ArchivedPostListView(LoginRequiredMixin, ListView):
+    template_name = "posts/archived.html"
+    archived_status = Status.objects.get(name="archived")
+    queryset = Post.objects.all().filter(status=archived_status).order_by("created_on").reverse()
+    context_object_name = "archived_posts"

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-w%99*17ju8k^6^)1&j43s^_!299o7_!0c771611p_pkey1_fmk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 
 # Application definition
@@ -42,7 +42,21 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
+
+### django-allauth settings ###
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = {
+    #Needed to login by username in Django admin, reqardless of allauth
+    'django.contrib.auth.backends.ModelBackend',
+    #'allauth' specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -66,10 +81,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+TEMLATE_EXTENSION = "html"
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -128,8 +146,23 @@ STATICFILES_DIRS = str(BASE_DIR.joinpath("static")),
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
-#LOGOUT_REDIRECT_URL = 'login'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login'
+# ACCOUNT_LOGOUT_ON_GET = True
+# LOGOUT_REDIRECT_URL = 'login'
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_USERNAME = False
+
+### Add the following when you are using a custom user model
+# ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 ### Crispy forms variables
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+### Email Backend Config ###
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
